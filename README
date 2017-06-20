@@ -1,0 +1,20 @@
+Do uruchomienia programu konieczne są:
+1. Plik z listą id struktur pdb (pobraną na przykład za pomocą biopythona)
+2. Katalog ze strukturami pdb. W katalogu powinny znajdować się katalogi (po rozpakowaniu plików gz np przy użyciu programu gnuzip), w których to znajdować się będą struktury pdb (w plikach o nazwie 'data')
+3. Stworzona tabela (baza postgresql). Przykładowa tabela:
+
+CREATE Table Interactions (
+id VARCHAR(10) NOT NULL,
+method VARCHAR(20) NOT NULL,
+full_line TEXT,
+interaction VARCHAR(20),
+sanger VARCHAR(20),
+f_chain VARCHAR(3),
+s_chain VARCHAR(3),
+f_nuc VARCHAR(20),
+s_nuc VARCHAR(20),
+nr_f_nuc INTEGER,
+nr_s_nuc INTEGER
+);
+
+4. Zdefiniowane wartości zmiennych w pliku 'config.py' (szczegóły opisane w pliku)

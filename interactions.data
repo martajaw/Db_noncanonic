@@ -1,0 +1,147 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.6.3
+-- Dumped by pg_dump version 9.6.3
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET search_path = public, pg_catalog;
+
+--
+-- Data for Name: interactions; Type: TABLE DATA; Schema: public; Owner: marta
+--
+
+COPY interactions (id, method, full_line, interaction, sanger, f_chain, s_chain, f_nuc, s_nuc, nr_f_nuc, nr_s_nuc) FROM stdin;
+101d	MC-Annotate	A1-B24 : C-G Ww/Ww pairing antiparallel cis XIX	cW/W	XIX	A	B	C	G	1	24
+101d	MC-Annotate	A2-B23 : G-C Ww/Ww pairing antiparallel cis XIX	cW/W	XIX	A	B	G	C	2	23
+101d	MC-Annotate	A3-B22 : C-G Ww/Ww pairing antiparallel cis XIX	cW/W	XIX	A	B	C	G	3	22
+101d	MC-Annotate	A5-B20 : A-T Ww/Ww pairing antiparallel cis	cW/W	n/a	A	B	A	T	5	20
+101d	MC-Annotate	A6-B19 : A-T Ww/Ww pairing antiparallel cis	cW/W	n/a	A	B	A	T	6	19
+101d	MC-Annotate	A7-B18 : T-A Ww/Ww pairing antiparallel cis	cW/W	n/a	A	B	T	A	7	18
+101d	MC-Annotate	A8-B17 : T-A Ww/Ww pairing antiparallel cis	cW/W	n/a	A	B	T	A	8	17
+101d	MC-Annotate	A10-B15 : G-C Ww/Ww pairing antiparallel cis XIX	cW/W	XIX	A	B	G	C	10	15
+101d	MC-Annotate	A11-B14 : C-G Ww/Ww pairing antiparallel cis XIX	cW/W	XIX	A	B	C	G	11	14
+101d	MC-Annotate	A12-B13 : G-C Ww/Ww pairing antiparallel cis XIX	cW/W	XIX	A	B	G	C	12	13
+101m	MC-Annotate	n/a	n/a	n/a	n/a	n/a	n/a	n/a	0	0
+102d	MC-Annotate	A1-B24 : C-G Ww/Ww pairing antiparallel cis XIX	cW/W	XIX	A	B	C	G	1	24
+102d	MC-Annotate	A2-B23 : G-C Ww/Ww pairing antiparallel cis XIX	cW/W	XIX	A	B	G	C	2	23
+102d	MC-Annotate	A3-B22 : C-G Ww/Ww pairing antiparallel cis XIX	cW/W	XIX	A	B	C	G	3	22
+102d	MC-Annotate	A4-B21 : A-T Ww/Ww pairing antiparallel cis	cW/W	n/a	A	B	A	T	4	21
+102d	MC-Annotate	A5-B20 : A-T Ww/Ww pairing antiparallel cis	cW/W	n/a	A	B	A	T	5	20
+102d	MC-Annotate	A6-B19 : A-T Ww/Ww pairing antiparallel cis	cW/W	n/a	A	B	A	T	6	19
+102d	MC-Annotate	A7-B18 : T-A Ww/Ww pairing antiparallel cis	cW/W	n/a	A	B	T	A	7	18
+102d	MC-Annotate	A8-B17 : T-A Ww/Ww pairing antiparallel cis	cW/W	n/a	A	B	T	A	8	17
+102d	MC-Annotate	A9-B16 : T-A Ww/Ww pairing antiparallel cis	cW/W	n/a	A	B	T	A	9	16
+102d	MC-Annotate	A10-B15 : G-C Ww/Ww pairing antiparallel cis XIX	cW/W	XIX	A	B	G	C	10	15
+102d	MC-Annotate	A11-B14 : C-G Ww/Ww pairing antiparallel cis XIX	cW/W	XIX	A	B	C	G	11	14
+102d	MC-Annotate	A12-B13 : G-C Ww/Ww pairing antiparallel cis XIX	cW/W	XIX	A	B	G	C	12	13
+102l	MC-Annotate	n/a	n/a	n/a	n/a	n/a	n/a	n/a	0	0
+103d	MC-Annotate	A1-B24 : G-C Ww/Ww pairing antiparallel cis XIX	cW/W	XIX	A	B	G	C	1	24
+103d	MC-Annotate	A2-B23 : T-A Ww/Ww pairing antiparallel cis	cW/W	n/a	A	B	T	A	2	23
+103d	MC-Annotate	A3-B22 : G-A Ss/Hh pairing antiparallel trans XI	tS/H	XI	A	B	G	A	3	22
+103d	MC-Annotate	A4-B22 : G-A Bs/O2P pairing		n/a	A	B	G	A	4	22
+103d	MC-Annotate	A5-B20 : A-G Hh/Ss pairing antiparallel trans XI	tH/S	XI	A	B	A	G	5	20
+103d	MC-Annotate	A5-B21 : A-G O2P/Bs pairing		n/a	A	B	A	G	5	21
+103d	MC-Annotate	A6-B19 : A-T Ww/Ww pairing antiparallel cis	cW/W	n/a	A	B	A	T	6	19
+103d	MC-Annotate	A7-B18 : T-A Ww/Ww pairing antiparallel cis	cW/W	n/a	A	B	T	A	7	18
+103d	MC-Annotate	A8-B17 : G-A Ss/Hh pairing antiparallel trans XI	tS/H	XI	A	B	G	A	8	17
+103d	MC-Annotate	A9-B17 : G-A Bs/O2P pairing		n/a	A	B	G	A	9	17
+103d	MC-Annotate	A10-B15 : A-G Hh/Ss pairing antiparallel trans XI	tH/S	XI	A	B	A	G	10	15
+103d	MC-Annotate	A10-B16 : A-G O2P/Bs pairing		n/a	A	B	A	G	10	16
+103d	MC-Annotate	A11-B14 : A-T Ww/Ww pairing antiparallel cis	cW/W	n/a	A	B	A	T	11	14
+103d	MC-Annotate	A12-B13 : C-G Ww/Ww pairing antiparallel cis XIX	cW/W	XIX	A	B	C	G	12	13
+103l	MC-Annotate	n/a	n/a	n/a	n/a	n/a	n/a	n/a	0	0
+103m	MC-Annotate	n/a	n/a	n/a	n/a	n/a	n/a	n/a	0	0
+104d	MC-Annotate	A1-B24 : C-G Ww/Ww pairing antiparallel cis XIX	cW/W	XIX	A	B	C	G	1	24
+104d	MC-Annotate	A2-B23 : G-C Ww/Ww pairing antiparallel cis XIX	cW/W	XIX	A	B	G	C	2	23
+104d	MC-Annotate	A3-B22 : C-G Ww/Ww pairing antiparallel cis XIX	cW/W	XIX	A	B	C	G	3	22
+104d	MC-Annotate	A4-B21 : G-C Ww/Ww pairing antiparallel cis XIX	cW/W	XIX	A	B	G	C	4	21
+104d	MC-Annotate	A5-B20 : T-A Ww/Ww pairing antiparallel cis	cW/W	n/a	A	B	T	A	5	20
+104d	MC-Annotate	A6-B19 : A-T Ww/Ww pairing antiparallel cis	cW/W	n/a	A	B	A	T	6	19
+104d	MC-Annotate	A7-B18 : T-A Ww/Ww pairing antiparallel cis	cW/W	n/a	A	B	T	A	7	18
+104d	MC-Annotate	A8-B17 : A-T Ww/Ww pairing antiparallel cis	cW/W	n/a	A	B	A	T	8	17
+104d	MC-Annotate	A9-B16 : C-G Ww/Ww pairing antiparallel cis XIX	cW/W	XIX	A	B	C	G	9	16
+104d	MC-Annotate	A10-B15 : G-C Ww/Ww pairing antiparallel cis XIX	cW/W	XIX	A	B	G	C	10	15
+104d	MC-Annotate	A11-B14 : C-G Ww/Ww pairing antiparallel cis XIX	cW/W	XIX	A	B	C	G	11	14
+104d	MC-Annotate	A12-B13 : G-C Ww/Ww pairing antiparallel cis XIX	cW/W	XIX	A	B	G	C	12	13
+101d	RNAView	1_24, A:     1 c-g    24 B: +/+ cis         XIX	c+/+	XIX	A	B	c	g	1	24
+101d	RNAView	2_23, A:     2 g-c    23 B: +/+ cis         XIX	c+/+	XIX	A	B	g	c	2	23
+101d	RNAView	3_22, A:     3 c-g    22 B: +/+ cis         XIX	c+/+	XIX	A	B	c	g	3	22
+101d	RNAView	4_21, A:     4 g-c    21 B: +/+ cis         XIX	c+/+	XIX	A	B	g	c	4	21
+101d	RNAView	5_20, A:     5 a-u    20 B: -/- cis    syn    XX	c-/-	XX	A	B	a	u	5	20
+101d	RNAView	6_19, A:     6 a-u    19 B: -/- cis         XX	c-/-	XX	A	B	a	u	6	19
+101d	RNAView	7_18, A:     7 u-a    18 B: -/- cis         XX	c-/-	XX	A	B	u	a	7	18
+101d	RNAView	8_17, A:     8 u-a    17 B: -/- cis         XX	c-/-	XX	A	B	u	a	8	17
+101d	RNAView	9_16, A:     9 c-g    16 B: +/+ cis      syn  XIX	c+/+	XIX	A	B	c	g	9	16
+101d	RNAView	10_15, A:    10 g-c    15 B: +/+ cis    syn    XIX	c+/+	XIX	A	B	g	c	10	15
+101d	RNAView	11_14, A:    11 c-g    14 B: +/+ cis         XIX	c+/+	XIX	A	B	c	g	11	14
+101d	RNAView	12_13, A:    12 g-c    13 B: +/+ cis         XIX	c+/+	XIX	A	B	g	c	12	13
+101m	RNAView	n/a	n/a	n/a	n/a	n/a	n/a	n/a	0	0
+102d	RNAView	1_24, A:     1 c-g    24 B: +/+ cis         XIX	c+/+	XIX	A	B	c	g	1	24
+102d	RNAView	2_23, A:     2 g-c    23 B: +/+ cis         XIX	c+/+	XIX	A	B	g	c	2	23
+102d	RNAView	3_4, A:     3 c-a     4 A:   syn  stacked			A	A	c	a	3	4
+102d	RNAView	3_22, A:     3 c-g    22 B: +/+ cis      syn  XIX	c+/+	XIX	A	B	c	g	3	22
+102d	RNAView	4_21, A:     4 a-u    21 B: -/- cis    syn    XX	c-/-	XX	A	B	a	u	4	21
+102d	RNAView	5_20, A:     5 a-u    20 B: -/- cis         XX	c-/-	XX	A	B	a	u	5	20
+102d	RNAView	6_19, A:     6 a-u    19 B: -/- cis         XX	c-/-	XX	A	B	a	u	6	19
+102d	RNAView	7_18, A:     7 u-a    18 B: -/- cis         XX	c-/-	XX	A	B	u	a	7	18
+102d	RNAView	8_17, A:     8 u-a    17 B: -/- cis         XX	c-/-	XX	A	B	u	a	8	17
+102d	RNAView	9_16, A:     9 u-a    16 B: -/- cis         XX	c-/-	XX	A	B	u	a	9	16
+102d	RNAView	10_15, A:    10 g-c    15 B: +/+ cis    syn    XIX	c+/+	XIX	A	B	g	c	10	15
+102d	RNAView	11_14, A:    11 c-g    14 B: +/+ cis         XIX	c+/+	XIX	A	B	c	g	11	14
+102d	RNAView	12_13, A:    12 g-c    13 B: +/+ cis    syn    XIX	c+/+	XIX	A	B	g	c	12	13
+102d	RNAView	15_16, B:    15 c-a    16 B:      stacked			B	B	c	a	15	16
+102l	RNAView	n/a	n/a	n/a	n/a	n/a	n/a	n/a	0	0
+103d	RNAView	1_23, A:     1 g-a    23 B: W/W cis         VIII	cW/W	VIII	A	B	g	a	1	23
+103d	RNAView	1_24, A:     1 g-c    24 B: +/+ cis         XIX	c+/+	XIX	A	B	g	c	1	24
+103d	RNAView	2_23, A:     2 u-a    23 B: -/- cis         XX	c-/-	XX	A	B	u	a	2	23
+103d	RNAView	3_22, A:     3 g-a    22 B: S/H tran   syn    XI	tS/H	XI	A	B	g	a	3	22
+103d	RNAView	5_20, A:     5 a-g    20 B: H/S tran     syn  XI	tH/S	XI	A	B	a	g	5	20
+103d	RNAView	6_18, A:     6 a-a    18 B: W/W cis         n/a	cW/W	n/a	A	B	a	a	6	18
+103d	RNAView	6_19, A:     6 a-u    19 B: -/- cis         XX	c-/-	XX	A	B	a	u	6	19
+103d	RNAView	7_18, A:     7 u-a    18 B: -/- cis         XX	c-/-	XX	A	B	u	a	7	18
+103d	RNAView	8_17, A:     8 g-a    17 B: S/H tran   syn    XI	tS/H	XI	A	B	g	a	8	17
+103d	RNAView	10_15, A:    10 a-g    15 B: H/S tran     syn  XI	tH/S	XI	A	B	a	g	10	15
+103d	RNAView	11_13, A:    11 a-g    13 B: W/W cis         VIII	cW/W	VIII	A	B	a	g	11	13
+103d	RNAView	11_14, A:    11 a-u    14 B: -/- cis         XX	c-/-	XX	A	B	a	u	11	14
+103d	RNAView	12_13, A:    12 c-g    13 B: +/+ cis         XIX	c+/+	XIX	A	B	c	g	12	13
+103d	RNAView	2_22, A:     2 u-a    22 B: W/W tran        !1H(b_b).	tW/W		A	B	u	a	2	22
+103d	RNAView	5_19, A:     5 a-u    19 B: W/W tran        !1H(b_b).	tW/W		A	B	a	u	5	19
+103d	RNAView	7_17, A:     7 u-a    17 B: W/W tran        !1H(b_b).	tW/W		A	B	u	a	7	17
+103d	RNAView	10_14, A:    10 a-u    14 B: W/W tran        !1H(b_b).	tW/W		A	B	a	u	10	14
+103l	RNAView	n/a	n/a	n/a	n/a	n/a	n/a	n/a	0	0
+103m	RNAView	n/a	n/a	n/a	n/a	n/a	n/a	n/a	0	0
+104d	RNAView	1_24, A:     1 C-g    24 B: +/+ cis         XIX	c+/+	XIX	A	B	C	g	1	24
+104d	RNAView	2_23, A:     2 G-c    23 B: +/+ cis         XIX	c+/+	XIX	A	B	G	c	2	23
+104d	RNAView	3_22, A:     3 C-g    22 B: +/+ cis         XIX	c+/+	XIX	A	B	C	g	3	22
+104d	RNAView	4_21, A:     4 G-c    21 B: +/+ cis         XIX	c+/+	XIX	A	B	G	c	4	21
+104d	RNAView	5_6, A:     5 u-a     6 A:      stacked			A	A	u	a	5	6
+104d	RNAView	5_20, A:     5 u-a    20 B: -/- cis         XX	c-/-	XX	A	B	u	a	5	20
+104d	RNAView	6_7, A:     6 a-u     7 A:      stacked			A	A	a	u	6	7
+104d	RNAView	6_19, A:     6 a-u    19 B: -/- cis         XX	c-/-	XX	A	B	a	u	6	19
+104d	RNAView	7_18, A:     7 u-a    18 B: -/- cis         XX	c-/-	XX	A	B	u	a	7	18
+104d	RNAView	8_17, A:     8 a-u    17 B: -/- cis         XX	c-/-	XX	A	B	a	u	8	17
+104d	RNAView	9_16, A:     9 c-G    16 B: +/+ cis         XIX	c+/+	XIX	A	B	c	G	9	16
+104d	RNAView	10_15, A:    10 g-C    15 B: +/+ cis         XIX	c+/+	XIX	A	B	g	C	10	15
+104d	RNAView	11_12, A:    11 c-g    12 A:      stacked			A	A	c	g	11	12
+104d	RNAView	11_14, A:    11 c-G    14 B: +/+ cis         XIX	c+/+	XIX	A	B	c	G	11	14
+104d	RNAView	12_13, A:    12 g-C    13 B: +/+ cis         XIX	c+/+	XIX	A	B	g	C	12	13
+104d	RNAView	17_18, B:    17 u-a    18 B:      stacked			B	B	u	a	17	18
+104d	RNAView	18_19, B:    18 a-u    19 B:      stacked			B	B	a	u	18	19
+104d	RNAView	23_24, B:    23 c-g    24 B:      stacked			B	B	c	g	23	24
+\.
+
+
+--
+-- PostgreSQL database dump complete
+--
+

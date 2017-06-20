@@ -1,11 +1,15 @@
 import re
-#Functions that retrive data from RNAView output files
+import subprocess
+import os, sys
+import psycopg2
+import config
 
+#Functions that retrive data from RNAView output files:
 def rv_full(line):
 	line = line.lstrip().rstrip()
 	return(line)
 
-def rv_interactions(line):
+def rv_interaction(line):
 	interactions = re.findall('[sSwWhH\+\-\?\.]{1}/{1}[sSwWhH\+\-\?\.]{1}',line)
 	conformation = re.findall('cis|tran', line)
 	if ("tran" in conformation):
@@ -13,39 +17,31 @@ def rv_interactions(line):
 	elif ("cis" in conformation):
 		interactions[0] = "c" + interactions[0]
 	
-	return(interactions)
+	return("".join(interactions))
 
 def rv_sanger(line):
     sanger = re.findall('[XVIn/a]+$', line)
-    return(sanger)
+    return("".join(sanger))
 
-#return first and second chains
 def rv_chains(line):
-    find_chains = re.findall('[A-Z]{1,1}:',line)
-    find_chains[0] = find_chains[0].strip(':')
-    find_chains[1] = find_chains[1].strip(':')
+    find_chains = re.findall('[A-Z]+',(str(re.findall('[A-Z]{1,1}:',str(line)))))
     return(find_chains)
 
 def rv_nucleotides(line):
-	nucleotides = re.findall('[ACGUacgu]{1}-[ACGUacgu]{1}',line)
+	nucleotides = re.findall('[ACGTUacgtu]{1}-[ACGTUacgtu]{1}',line)
 	nucleotides = "".join(nucleotides)
 	nucleotides = nucleotides.split("-")
-	print(nucleotides)
+	return(nucleotides)
 
 def rv_nr_nucleotides(line):
 	nr_nuc = re.findall(' +[0-9]+ +', line)
-	for i in renge(0,len(nr_nuc)):
+	for i in range(0,len(nr_nuc)):
 		nr_nuc[i] = nr_nuc[i].strip()
 	return(nr_nuc)	
-    
-    
-
-
-
-
-
-
-
+	
+#--------------------------------------------------------------------------    
+ 
+   
 #Functions that retrive data from McAnnotate output files
 
 def mc_full(line):
@@ -53,10 +49,8 @@ def mc_full(line):
 	return(line)
 
 def mc_interaction(line):
-	interactions = re.findall(' {1}[WHS]{1}[whs]{1}/[WHS]{1}[whs]{1} {1}', line)
-	interactions[0] = interactions[0].strip()
-	cut = re.findall('[A-Z]+', interactions[0])
-	cut = '/'.join(cut)
+	interactions = re.findall('[A-Z]+' ,(str(re.findall(' {1}[WHS]{1}[whs]{1}/[WHS]{1}[whs]{1} {1}', str(line)))))
+	cut = '/'.join(interactions)
 	conformations = re.findall('cis|trans',line)
 	
 	if ("trans" in conformations):
@@ -67,19 +61,15 @@ def mc_interaction(line):
 	return(cut)
 	
 def mc_sanger(line):
-	if (' +[XVI]+ +' in line):
-		sanger = re.findall(' +[XVI]+ +', line)
-		if (len(sanger) == 1):
-			sanger[len(sanger)-1] = sanger[len(sanger)-1].strip()
-			return(sanger)
-		else:
-			return('n/a')
+	sanger = re.findall(' +[XVI]+', line)
+	if (len(sanger) == 1):
+		sanger[len(sanger)-1] = sanger[len(sanger)-1].strip()
+		return("".join(sanger))
 	else:
-			return('n/a')
-
-
+		return('n/a')
+	
 def mc_chains(line):
-	chains = re.findall('[A-Z]+[1-9]+-{1}[A-Z]+[1-9]+', line)
+	chains = re.findall('[A-Z]+[0-9]+-{1}[A-Z]+[0-9]+', line)
 	chains = "".join(chains)
 	find_chains = re.findall('[A-Z]+', chains)	
 	return(find_chains)
@@ -92,42 +82,135 @@ def mc_nucleotides(line):
 	return(nucleotides)
     
 def mc_nr_nucleotides(line):
-	chain_nr = re.findall('[A-Z]+[1-9]+-{1}[A-Z]+[1-9]+', line)
-	chain_nr = "".join(chain_nr)
-	chains = re.findall('[1-9]+',chain_nr)
-	return(chains)
+	chain_nr = re.findall('[0-9]+',(str(re.findall('[0-9]+-{1}[A-Z]+[0-9]+', str(line)))))
+	return(chain_nr)
 
-
-linia = "A1-B24 : C-G Ww/Ww pairing antiparallel cis XIX"
-a = mc_nucleotides(linia)
-print(a)
+#-----------------------------------------------------------------------------------------
 
 
 
-#TABLE
-#CREATE Table Interactions (
-#Structure_Id VARCHAR(10) NOT NULL,
-#Method VARCHAR(20) NOT NULL,
-#Interaction_full_line TEXT,
-#Interaction VARCHAR(20),
-#Sanger_classification VARCHAR(20),
-#First_chain VARCHAR(1),
-#Second_chain VARCHAR(1),
-#First_nucleotide VARCHAR(20),
-#Second_nucleotide VARCHAR(20),
-#First_nr_nucleotide INTEGER,
-#Second_nr_nucleotide INTEGER
-#);
+#Run RNAView
+def rv_run(path):
+	j = 0
+	for a in id_list:
+		if (subprocess.run([path, pdb_path + "/" + "pdb" + a + ".ent/" + "data"])):
+			j = j + 1
 
-#How to run programs
+	
 
-#import subprocess
-
-#rnaview_path = input("Podaj pełną ścieżkę rnview\n$ ");
+#Run MC-Annotate
+def mc_run(path):
+	for a in id_list:
+		f = open(pdb_path + "/" + "pdb" + a + ".ent/" + "mcdata.out", 'w')
+		subprocess.run([path, pdb_path + "/" + "pdb" + a + ".ent/" + "data"], stdout = f )
+		
 
 
-#def RNAView(pdb_id)
-#    subprocess.run([rnaview_path,"./pdb_files/"+pdb_id+".pdb"])
+#Insert data from programs outputs to database
+def insert(table, columns, values):
+	connect_data = '\"dbname=\'' + name_db +'\' user=\'' +user_db + '\' host=\'' + host + '\' password=\'' + passwd + '\'\"'
+	connection = psycopg2.connect(connect_data)
+	mark = connection.cursor()
+	statement = 'INSERT INTO ' + table + ' (' + columns + ') VALUES (' + values + ')'
+	mark.execute(statement)
+	connection.commit()
+	return
+
+#Preparation of output files (MC-Annotate) for input into the database
+def mc_parser()	:
+	line_nr = 0
+	for a in id_list:
+		with open(pdb_path + '/pdb' + a + '.ent/' + 'mcdata.out') as f:
+			content = f.readlines()	
+			content = [x.strip() for x in content]
+		for i in range(0, len(content)):
+			if('Base-pairs' in content[i]):
+				line_nr = i
+		del(content[0:line_nr + 1])
+		
+		if(len(content) == 0) :
+			values = '\'' + a + '\'' + ', \''+  'MC-Annotate' +  '\', ' + '\'' + 'n/a' + '\'' + ', \'' +  'n/a' + '\'' + ', \'' + 'n/a' + '\'' + ', \''+ 'n/a' + '\'' + ', \'' + 'n/a' + '\'' + ', \'' + 'n/a' + '\'' + ', \'' + 'n/a' + '\'' + ', ' + '0' + ', ' + '0'
+			insert(table, columns, values)
+			continue
+		
+		for j in content:
+		
+			if (len(functions.mc_chains(j)) == 2):
+				f_chain = functions.mc_chains(j)[0]
+				s_chain = functions.mc_chains(j)[1]
+			else: 
+				f_chain = 'n/a'
+				s_chain = 'n/a'
+			
+			if (len(functions.mc_nucleotides(j)) == 2):
+				f_nucleotide = functions.mc_nucleotides(j)[0]
+				s_nucleotide = functions.mc_nucleotides(j)[1]
+			else:
+				f_nucleotide = 'n/a'
+				s_nucleotide = 'n/a'
+				
+			if (len(functions.mc_nr_nucleotides(j)) == 2):
+				f_nr_nucleotide = functions.mc_nr_nucleotides(j)[0]
+				s_nr_nucleotide = functions.mc_nr_nucleotides(j)[1]
+			else:
+				f_nr_nucleotide = '0'
+				s_nr_nucleotide = '0'
+				
+				
+			values = '\'' + a + '\'' + ', \''+  'MC-Annotate' +  '\', ' + '\'' + functions.mc_full(j) + '\'' + ', \'' +  functions.mc_interaction(j) + '\'' + ', \'' + functions.mc_sanger(j) + '\'' + ', \''+ f_chain + '\'' + ', \'' + s_chain + '\'' + ', \'' + f_nucleotide + '\'' + ', \'' + s_nucleotide + '\'' + ', ' + f_nr_nucleotide + ', ' + s_nr_nucleotide
+			print(values)
+			insert(table, columns, values) 
+			
+#Preparation of output files (RNAView) for input into the database
+def rv_parser() :
+	line_nr = 0
+	for a in id_list:
+		with open(pdb_path + '/pdb' + a + '.ent/' + 'data.out') as f:
+			content = f.readlines()
+			content = [x.strip() for x in content]
+		for i in range(0, len(content)):
+			if('BEGIN_base-pair' in content[i]):
+				line_nr = i
+		del(content[0:line_nr + 1])
+		
+		for i in range(0, len(content)):
+			if('END_base-pair' in content[i]):
+				line_nr = i
+		del(content[line_nr:len(content)])
+	
+		if(len(content) == 0) :
+			values = '\'' + a + '\'' + ', \''+  'RNAView' +  '\', ' + '\'' + 'n/a' + '\'' + ', \'' +  'n/a' + '\'' + ', \'' + 'n/a' + '\'' + ', \''+ 'n/a' + '\'' + ', \'' + 'n/a' + '\'' + ', \'' + 'n/a' + '\'' + ', \'' + 'n/a' + '\'' + ', ' + '0' + ', ' + '0'
+			insert(table, columns, values)
+			continue
+			
+		for j in content:
+			if (len(functions.rv_chains(j)) == 2):
+				f_chain = functions.rv_chains(j)[0]
+				s_chain = functions.rv_chains(j)[1]
+			else: 
+				f_chain = 'n/a'
+				s_chain = 'n/a'
+			
+			if (len(functions.rv_nucleotides(j)) == 2):
+				f_nucleotide = functions.rv_nucleotides(j)[0]
+				s_nucleotide = functions.rv_nucleotides(j)[1]
+			else:
+				f_nucleotide = 'n/a'
+				s_nucleotide = 'n/a'
+				
+			if (len(functions.rv_nr_nucleotides(j)) == 2):
+				f_nr_nucleotide = functions.rv_nr_nucleotides(j)[0]
+				s_nr_nucleotide = functions.rv_nr_nucleotides(j)[1]
+			else:
+				f_nr_nucleotide = '0'
+				s_nr_nucleotide = '0'
+				
+			values = '\'' + a + '\'' + ', \''+  'RNAView' +  '\', ' + '\'' + functions.rv_full(j) + '\'' + ', \'' +  functions.rv_interaction(j) + '\'' + ', \'' + functions.rv_sanger(j) + '\'' + ', \''+ f_chain + '\'' + ', \'' + s_chain + '\'' + ', \'' + f_nucleotide + '\'' + ', \'' + s_nucleotide + '\'' + ', ' + f_nr_nucleotide + ', ' + s_nr_nucleotide
+			insert(table, columns, values)
+			print(values)
+
+
+
 
 
 
