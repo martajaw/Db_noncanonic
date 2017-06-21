@@ -11,7 +11,7 @@
 #'passwd' - password
 #Examples of values:
 
-#Before starting the program -nncomment the following lines and enter the values
+#Before starting the program - uncomment the following lines and enter the values
 
 #pdb_path = '/home/marta/Licencjat/pdb_gz'
 #rv_path = '/home/marta/RNAVIEW/bin/rnaview'
