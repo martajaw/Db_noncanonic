@@ -1,20 +1,20 @@
-Do uruchomienia programu konieczne są:
-1. Plik z listą id struktur pdb (pobraną na przykład za pomocą biopythona)
-2. Katalog ze strukturami pdb. W katalogu powinny znajdować się katalogi (po rozpakowaniu plików gz np przy użyciu programu gnuzip), w których to znajdować się będą struktury pdb (w plikach o nazwie 'data')
-3. Stworzona tabela (baza postgresql). Przykładowa tabela:
+To run the program you need:
+1. File with pdb structure id list (downloaded for example by biopython)
+2. Catalog with pdb structures. The directory should contain directories (after unzipping gzuzip files with gz, for example), where pdb structures (in files called 'data') are located.
+3. Created table (postgresql database). Example table:
 
-CREATE Table Interactions (
-id VARCHAR(10) NOT NULL,
-method VARCHAR(20) NOT NULL,
-full_line TEXT,
-interaction VARCHAR(20),
-sanger VARCHAR(20),
-f_chain VARCHAR(3),
-s_chain VARCHAR(3),
-f_nuc VARCHAR(20),
-s_nuc VARCHAR(20),
-nr_f_nuc INTEGER,
-nr_s_nuc INTEGER
+CREATE TABLE Interactions (
+Id VARCHAR (10) NOT NULL,
+Method VARCHAR (20) NOT NULL,
+Full_line TEXT,
+Interaction VARCHAR (20),
+Sanger VARCHAR (20),
+F_chain VARCHAR (3),
+S_chain VARCHAR (3),
+F_nuc VARCHAR (20),
+S_nuc VARCHAR (20),
+Nr_f_nuc INTEGER,
+Nr_s_nuc INTEGER
 );
 
-4. Zdefiniowane wartości zmiennych w pliku 'config.py' (szczegóły opisane w pliku)
+4. Defined variable values in the 'config.py' file (details in the file)
