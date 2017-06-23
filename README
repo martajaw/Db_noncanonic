@@ -1,6 +1,6 @@
 To run the program you need:
 1. File with pdb structure id list (downloaded for example by biopython)
-2. Catalog with pdb structures. The directory should contain directories (after unzipping gzuzip files with gz, for example), where pdb structures (in files called 'data') are located.
+2. Catalog with pdb structures. The directory should contain directories (after unzipping), where pdb structures (in files called 'data') are located.
 3. Created table (postgresql database). Example table:
 
 CREATE TABLE Interactions (
